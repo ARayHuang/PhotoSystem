@@ -1,10 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Store.Model;
+using System;
 
 namespace Store.Context
 {
-    public class StoreContext : DbContext
+    public interface IDbContext : IDisposable
     {
+        DbContext Instance { get; }
+    }
+    public interface IApplicationDbContext  : IDbContext
+    {
+        DbSet<User> tblUsers { get; set; }
+        DbSet<Project> tblProjects { get; set; }
+        DbSet<Photo> tblPhotos { get; set; }
+    }
+    public class StoreContext : DbContext, IApplicationDbContext
+    {
+        public DbContext Instance => this;
         public DbSet<User> tblUsers { get; set; }
         public DbSet<Project> tblProjects { get; set; }
         public DbSet<Photo> tblPhotos { get; set; }
