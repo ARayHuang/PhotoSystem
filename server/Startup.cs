@@ -29,7 +29,7 @@ namespace server
         {
             services.AddCors();
             //servColl.AddDbContext<MyCoolDbContext>(options => options.UseMySQL("server=localhost;database=library;user=mysqlschema;password=mypassword"));
-            services.AddDbContext<StoreContext>();
+            //services.AddDbContext<StoreContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
 
@@ -75,6 +75,7 @@ namespace server
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IApplicationDbContext, StoreContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

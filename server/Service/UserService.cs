@@ -19,9 +19,9 @@ namespace server.Service
     }
     public class UserService : IUserService
     {
-        private StoreContext m_Context;
+        private IApplicationDbContext m_Context;
 
-        public UserService(StoreContext context)
+        public UserService(IApplicationDbContext context)
         {
             m_Context = context;
         }
@@ -65,7 +65,7 @@ namespace server.Service
                 throw new AppException("Username \"" + user.Username + "\" is already taken");  
 
             m_Context.tblUsers.Add(user);
-            m_Context.SaveChanges();
+            m_Context.Instance.SaveChanges();
 
             return user;
         }
@@ -94,7 +94,7 @@ namespace server.Service
             }
 
             m_Context.tblUsers.Update(user);
-            m_Context.SaveChanges();
+            m_Context.Instance.SaveChanges();
         }
 
         public void Delete(int id)
@@ -103,7 +103,7 @@ namespace server.Service
             if (user != null)
             {
                 m_Context.tblUsers.Remove(user);
-                m_Context.SaveChanges();
+                m_Context.Instance.SaveChanges();
             }
         }
 
